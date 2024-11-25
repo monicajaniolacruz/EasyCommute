@@ -7,9 +7,8 @@ const router = createRouter({
     {
       path: '/auth',
       name: 'home',
-      component:LoginView 
+      component: LoginView,
     },
-   
   ],
 })
 

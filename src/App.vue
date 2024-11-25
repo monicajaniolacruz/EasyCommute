@@ -1,8 +1,6 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import videoPath from './components/images/INDEX.mp4'
-
-
+import videoPath from './components/vids/login.mp4'
 </script>
 
 <template>
@@ -11,7 +9,6 @@ import videoPath from './components/images/INDEX.mp4'
     <div class="video-container">
       <video autoplay muted loop class="background-video">
         <source :src="videoPath" type="video/mp4" />
-        Your browser does not support the video tag.
       </video>
     </div>
 
@@ -58,52 +55,63 @@ import videoPath from './components/images/INDEX.mp4'
   height: 100%;
   overflow: hidden;
 }
+.logo {
+  font-size: 2em;
+  color: white;
+  user-select: none;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+    Verdana, sans-serif;
+}
 .transparent-navbar {
   background-color: transparent;
-  backdrop-filter: blur(5px);
 }
 
 .nav-link {
+  position: relative;
+  font-size: 1.1em;
   color: white;
   text-decoration: none;
-  margin-right: 20px;
-  font-weight: 500;
-  transition: opacity 0.3s ease;
+  font-weight: 300;
+  margin-left: 50px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+    Verdana, sans-serif;
+}
+.nav-link a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 3px;
+  background: #fff;
+  border-radius: 5px;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform 0.5s;
+}
+.nav-link a:hover::after {
+  transform-origin: left;
+  transform: scaleX(1);
 }
 
-.nav-link:hover {
-  opacity: 0.7;
-}
 .white-text-custom {
   color: white !important;
 }
 
 button {
-  appearance: none;
-  background-color: transparent;
-  border: 0.125em solid #22034a;
-  border-radius: 0.9375em;
-  box-sizing: border-box;
-  color: white;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-size: 16px;
-  font-weight: 600;
-  line-height: normal;
-  margin: 0;
-  min-height: 3em;
-  min-width: 0;
+  width: 130px;
+  height: 50px;
+  background: transparent;
+  border: 2px solid white;
   outline: none;
-  padding: 0.8em 2em;
-  text-align: center;
-  text-decoration: none;
-  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  will-change: transform;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1em;
+  color: white;
+  font-weight: 500;
+  margin-left: 40px;
+  transition: 0.5s;
+  transform: translate(40%, 15%);
 }
 
 button:disabled {
@@ -111,10 +119,8 @@ button:disabled {
 }
 
 button:hover {
-  color: #fff;
-  background-color: #37277030;
-  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-  transform: translateY(-2px);
+  background: #fff;
+  color: #162938;
 }
 
 button:active {
@@ -124,31 +130,18 @@ button:active {
 
 /* Responsive adjustments */
 button {
-  appearance: none;
-  background-color: transparent;
-  border: 0.125em solid #22034a;
-  border-radius: 0.9375em;
-  box-sizing: border-box;
-  color: white;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-size: 16px; /* Default font size */
-  font-weight: 600;
-  line-height: normal;
-  margin: 0;
-  min-height: 3em;
-  min-width: 0;
+  width: 130px;
+  height: 50px;
+  background: transparent;
+  border: 2px solid white;
   outline: none;
-  padding: 0.8em 2em;
-  text-align: center;
-  text-decoration: none;
-  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  will-change: transform;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1em;
+  color: white;
+  font-weight: 500;
+  margin-left: 40px;
+  transition: 0.5s;
 }
 
 button:disabled {
@@ -156,10 +149,8 @@ button:disabled {
 }
 
 button:hover {
-  color: #fff;
-  background-color: #37277030;
-  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-  transform: translateY(-2px);
+  background: #fff;
+  color: #162938;
 }
 
 button:active {
