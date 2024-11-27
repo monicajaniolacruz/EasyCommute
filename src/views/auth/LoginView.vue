@@ -4,7 +4,7 @@
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="6" lg="4">
           <!-- Apply transparent background to v-card using class -->
-          <v-card class="elevation-12 rounded-xl transparent-card blurred-background">
+          <v-card class="elevation-12 rounded-xl transparent-card blurred-background flexible-form">
             <v-toolbar dark flat class="rounded-t-xl transparent-card">
               <v-toolbar-title class="text-h5 font-weight-bold text-center white--text">
                 Easy Commute
@@ -166,7 +166,7 @@
 }
 
 .ml-2 {
-  margin-left: 8px; /* Vuetify doesn't have this by default */
+  margin-left: 8px;
 }
 
 .d-flex {
@@ -175,6 +175,27 @@
 
 .align-center {
   align-items: center;
+}
+
+/* Media Queries for Responsiveness */
+
+/* Small Devices (e.g., Phones) */
+@media (max-width: 600px) {
+  .flexible-form {
+    max-height: 80vh; /* Limit height for smaller screens */
+    overflow-y: auto;
+    /* Add padding for better usability */
+    background-color: transparent; /* Keep background transparent */
+  }
+}
+
+/* Medium Devices (e.g., Tablets) */
+@media (min-width: 601px) and (max-width: 960px) {
+  .flexible-form {
+    max-height: 80vh; /* Adjust height for medium screens */
+    overflow-y: auto;
+    background-color: transparent; /* Keep background transparent */
+  }
 }
 </style>
 
@@ -280,6 +301,8 @@ export default {
           if (insertError) throw new Error('Unable to save user details to the database.')
 
           this.showSnackbar('Signup successful please check your email!', 'success')
+          // Redirect Acct to Home
+          router.replace('/system')
 
           // Clear form fields after successful signup
           this.fullname = ''

@@ -1,6 +1,11 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import videoPath from './components/vids/login.mp4'
+import videoPath from './components/vids/register.mp4'
+import { ref, computed } from 'vue'
+import { useDisplay } from 'vuetify'
+
+const { xsOnly } = useDisplay()
+const isMobile = computed(() => xsOnly.value)
 </script>
 
 <template>
@@ -22,14 +27,8 @@ import videoPath from './components/vids/login.mp4'
 
         <!-- Navigation -->
         <v-spacer></v-spacer>
-        <nav>
-          <router-link to="#" class="nav-link">Home</router-link>
-          <router-link to="#" class="nav-link">About</router-link>
-          <router-link to="#" class="nav-link">Contact</router-link>
-          <router-link to="#" class="nav-link">Settings</router-link>
-        </nav>
         <router-link to="/auth">
-          <button class="ml-3">Sign in</button>
+          <button class="ml-3 adjustable-button">Sign in</button>
         </router-link>
       </v-container>
     </v-app-bar>
@@ -40,12 +39,16 @@ import videoPath from './components/vids/login.mp4'
 
 <style scoped>
 .background-video {
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  z-index: -1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%; /* Default width */
+  height: auto; /* Maintain aspect ratio */
+  transform: translate(-50%, -50%); /* Center the video */
+  min-width: 100%; /* Ensure video covers the width */
+  min-height: 100%; /* Ensure video covers the height */
+  object-fit: cover; /* Scale to cover the entire container */
+  z-index: -1; /* Behind all content */
 }
 .video-container {
   position: fixed;
@@ -55,6 +58,7 @@ import videoPath from './components/vids/login.mp4'
   height: 100%;
   overflow: hidden;
 }
+
 .logo {
   font-size: 2em;
   color: white;
@@ -66,104 +70,99 @@ import videoPath from './components/vids/login.mp4'
   background-color: transparent;
 }
 
-.nav-link {
-  position: relative;
-  font-size: 1.1em;
-  color: white;
-  text-decoration: none;
-  font-weight: 300;
-  margin-left: 50px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-    Verdana, sans-serif;
-}
-.nav-link a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 100%;
-  height: 3px;
-  background: #fff;
-  border-radius: 5px;
-  transform-origin: right;
-  transform: scaleX(0);
-  transition: transform 0.5s;
-}
-.nav-link a:hover::after {
-  transform-origin: left;
-  transform: scaleX(1);
-}
-
 .white-text-custom {
   color: white !important;
 }
 
-button {
+.adjustable-button {
+  position: absolute;
+  top: var(--button-top, 50%); /* Default to center vertically */
+  left: var(--button-left, 50%); /* Default to center horizontally */
+  transform: translate(-50%, -50%); /* Center the button exactly */
   width: 130px;
   height: 50px;
   background: transparent;
   border: 2px solid white;
-  outline: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1.1em;
   color: white;
   font-weight: 500;
-  margin-left: 40px;
   transition: 0.5s;
-  transform: translate(40%, 15%);
 }
 
-button:disabled {
-  pointer-events: none;
-}
-
-button:hover {
+.adjustable-button:hover {
   background: #fff;
   color: #162938;
 }
 
-button:active {
+.adjustable-button:disabled {
+  pointer-events: none;
+}
+
+.adjustable button:active {
   box-shadow: none;
   transform: translateY(0);
 }
 
 /* Responsive adjustments */
-button {
+.adjustable-button {
+  position: absolute;
+  top: var(--button-top, 60%); /* Default to center vertically */
+  left: var(--button-left, 85%); /* Default to center horizontally */
+  transform: translate(-50%, -50%); /* Center the button exactly */
   width: 130px;
   height: 50px;
   background: transparent;
   border: 2px solid white;
-  outline: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1.1em;
   color: white;
   font-weight: 500;
-  margin-left: 40px;
   transition: 0.5s;
 }
 
-button:disabled {
-  pointer-events: none;
-}
-
-button:hover {
+.adjustable-button:hover {
   background: #fff;
   color: #162938;
 }
 
-button:active {
+.adjustable-button:disabled {
+  pointer-events: none;
+}
+
+.adjustable button:active {
   box-shadow: none;
   transform: translateY(0);
 }
 
+/* Media Query for Small Devices */
 @media (max-width: 600px) {
-  button {
-    width: 100%;
-    padding: 0.6em 1.5em;
-    font-size: 12px;
-    min-height: 2.5em;
+  .adjustable-button {
+    width: 130px; /* Larger width for small devices */
+    font-size: 1rem; /* Larger, more legible font size */
+    top: 60%; /* Slightly adjust position for better visibility */
+    left: 75%;
+    transform: translate(-50%, -50%);
+  }
+}
+/* Adjustments for smaller screens */
+@media (max-width: 900px) {
+  .v-app-bar-title {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 600px) {
+  .v-app-bar-title {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 400px) {
+  .v-app-bar-title {
+    font-size: 1em;
   }
 }
 </style>
