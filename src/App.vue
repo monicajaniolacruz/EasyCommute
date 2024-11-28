@@ -1,8 +1,11 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import videoPath from './components/images/INDEX.mp4'
+import videoPath from '@/components/vids/register.mp4'
+import { ref, computed } from 'vue'
+import { useDisplay } from 'vuetify'
 
-
+const { xsOnly } = useDisplay()
+const isMobile = computed(() => xsOnly.value)
 </script>
 
 <template>
@@ -11,7 +14,6 @@ import videoPath from './components/images/INDEX.mp4'
     <div class="video-container">
       <video autoplay muted loop class="background-video">
         <source :src="videoPath" type="video/mp4" />
-        Your browser does not support the video tag.
       </video>
     </div>
 
@@ -25,14 +27,8 @@ import videoPath from './components/images/INDEX.mp4'
 
         <!-- Navigation -->
         <v-spacer></v-spacer>
-        <nav>
-          <router-link to="#" class="nav-link">Home</router-link>
-          <router-link to="#" class="nav-link">About</router-link>
-          <router-link to="#" class="nav-link">Contact</router-link>
-          <router-link to="#" class="nav-link">Settings</router-link>
-        </nav>
-        <router-link to="/auth">
-          <button class="ml-3">Sign in</button>
+        <router-link to="auth">
+          <button class="ml-3 adjustable-button">Sign in</button>
         </router-link>
       </v-container>
     </v-app-bar>
@@ -43,12 +39,16 @@ import videoPath from './components/images/INDEX.mp4'
 
 <style scoped>
 .background-video {
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  z-index: -1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%; /* Default width */
+  height: auto; /* Maintain aspect ratio */
+  transform: translate(-50%, -50%); /* Center the video */
+  min-width: 100%; /* Ensure video covers the width */
+  min-height: 100%; /* Ensure video covers the height */
+  object-fit: cover; /* Scale to cover the entire container */
+  z-index: -1; /* Behind all content */
 }
 .video-container {
   position: fixed;
@@ -58,121 +58,111 @@ import videoPath from './components/images/INDEX.mp4'
   height: 100%;
   overflow: hidden;
 }
+
+.logo {
+  font-size: 2em;
+  color: white;
+  user-select: none;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+    Verdana, sans-serif;
+}
 .transparent-navbar {
   background-color: transparent;
-  backdrop-filter: blur(5px);
 }
 
-.nav-link {
-  color: white;
-  text-decoration: none;
-  margin-right: 20px;
-  font-weight: 500;
-  transition: opacity 0.3s ease;
-}
-
-.nav-link:hover {
-  opacity: 0.7;
-}
 .white-text-custom {
   color: white !important;
 }
 
-button {
-  appearance: none;
-  background-color: transparent;
-  border: 0.125em solid #22034a;
-  border-radius: 0.9375em;
-  box-sizing: border-box;
-  color: white;
+.adjustable-button {
+  position: absolute;
+  top: var(--button-top, 50%); /* Default to center vertically */
+  left: var(--button-left, 50%); /* Default to center horizontally */
+  transform: translate(-50%, -50%); /* Center the button exactly */
+  width: 130px;
+  height: 50px;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 6px;
   cursor: pointer;
-  display: inline-block;
-  font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-size: 16px;
-  font-weight: 600;
-  line-height: normal;
-  margin: 0;
-  min-height: 3em;
-  min-width: 0;
-  outline: none;
-  padding: 0.8em 2em;
-  text-align: center;
-  text-decoration: none;
-  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  will-change: transform;
+  font-size: 1.1em;
+  color: white;
+  font-weight: 500;
+  transition: 0.5s;
 }
 
-button:disabled {
+.adjustable-button:hover {
+  background: #fff;
+  color: #162938;
+}
+
+.adjustable-button:disabled {
   pointer-events: none;
 }
 
-button:hover {
-  color: #fff;
-  background-color: #37277030;
-  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-  transform: translateY(-2px);
-}
-
-button:active {
+.adjustable button:active {
   box-shadow: none;
   transform: translateY(0);
 }
 
 /* Responsive adjustments */
-button {
-  appearance: none;
-  background-color: transparent;
-  border: 0.125em solid #22034a;
-  border-radius: 0.9375em;
-  box-sizing: border-box;
-  color: white;
+.adjustable-button {
+  position: absolute;
+  top: var(--button-top, 60%); /* Default to center vertically */
+  left: var(--button-left, 85%); /* Default to center horizontally */
+  transform: translate(-50%, -50%); /* Center the button exactly */
+  width: 130px;
+  height: 50px;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 6px;
   cursor: pointer;
-  display: inline-block;
-  font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-size: 16px; /* Default font size */
-  font-weight: 600;
-  line-height: normal;
-  margin: 0;
-  min-height: 3em;
-  min-width: 0;
-  outline: none;
-  padding: 0.8em 2em;
-  text-align: center;
-  text-decoration: none;
-  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  will-change: transform;
+  font-size: 1.1em;
+  color: white;
+  font-weight: 500;
+  transition: 0.5s;
 }
 
-button:disabled {
+.adjustable-button:hover {
+  background: #fff;
+  color: #162938;
+}
+
+.adjustable-button:disabled {
   pointer-events: none;
 }
 
-button:hover {
-  color: #fff;
-  background-color: #37277030;
-  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-  transform: translateY(-2px);
-}
-
-button:active {
+.adjustable button:active {
   box-shadow: none;
   transform: translateY(0);
 }
 
+/* Media Query for Small Devices */
 @media (max-width: 600px) {
-  button {
-    width: 100%;
-    padding: 0.6em 1.5em;
-    font-size: 12px;
-    min-height: 2.5em;
+  .adjustable-button {
+    width: 130px; /* Larger width for small devices */
+    font-size: 1rem; /* Larger, more legible font size */
+    top: 60%; /* Slightly adjust position for better visibility */
+    left: 75%;
+    transform: translate(-50%, -50%);
+  }
+}
+/* Adjustments for smaller screens */
+@media (max-width: 900px) {
+  .v-app-bar-title {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 600px) {
+  .v-app-bar-title {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 400px) {
+  .v-app-bar-title {
+    font-size: 1em;
   }
 }
 </style>
