@@ -1,6 +1,6 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import videoPath from './components/vids/register.mp4'
+import videoPath from '@/components/vids/register.mp4'
 import { ref, computed } from 'vue'
 import { useDisplay } from 'vuetify'
 
@@ -27,7 +27,7 @@ const isMobile = computed(() => xsOnly.value)
 
         <!-- Navigation -->
         <v-spacer></v-spacer>
-        <router-link to="/auth">
+        <router-link to="auth">
           <button class="ml-3 adjustable-button">Sign in</button>
         </router-link>
       </v-container>

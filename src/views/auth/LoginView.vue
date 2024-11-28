@@ -302,7 +302,7 @@ export default {
 
           this.showSnackbar('Signup successful please check your email!', 'success')
           // Redirect Acct to Home
-          router.replace('/system')
+          router.replace('/home')
 
           // Clear form fields after successful signup
           this.fullname = ''
