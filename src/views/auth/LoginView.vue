@@ -1,5 +1,37 @@
+<script setup>
+import { RouterView } from 'vue-router'
+import { ref, computed } from 'vue'
+import { useDisplay } from 'vuetify'
+
+const { xsOnly } = useDisplay()
+const isMobile = computed(() => xsOnly.value)
+</script>
+
 <template>
   <v-app>
+    <!-- Background Video -->
+    <div class="video-container">
+      <video autoplay muted loop class="background-video">
+        <source src="/public/images/register.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <!-- Header Section -->
+    <v-app-bar app flat class="transparent-navbar">
+      <v-container class="d-flex align-center">
+        <!-- Logo -->
+        <v-app-bar-title class="text-h5 font-weight-bold white-text-custom">
+          Easy Commute
+        </v-app-bar-title>
+
+        <!-- Navigation -->
+        <v-spacer></v-spacer>
+        <router-link to="/">
+          <button class="ml-3 adjustable-button">Sign in</button>
+        </router-link>
+      </v-container>
+    </v-app-bar>
+    <!-- FORMS -->
     <v-container fluid class="fill-height">
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="6" lg="4">
@@ -117,17 +149,146 @@
         </v-col>
       </v-row>
     </v-container>
-
     <v-snackbar v-model="snackbar" :color="snackbarColor" :timeout="3000" class="white--text">
       {{ snackbarText }}
       <template v-slot:action="{ attrs }">
         <v-btn text v-bind="attrs" @click="snackbar = false"> Close </v-btn>
       </template>
     </v-snackbar>
+
+    <RouterView />
   </v-app>
 </template>
 
 <style scoped>
+.background-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%; /* Default width */
+  height: auto; /* Maintain aspect ratio */
+  transform: translate(-50%, -50%); /* Center the video */
+  min-width: 100%; /* Ensure video covers the width */
+  min-height: 100%; /* Ensure video covers the height */
+  object-fit: cover; /* Scale to cover the entire container */
+  z-index: -1; /* Behind all content */
+}
+.video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.logo {
+  font-size: 2em;
+  color: white;
+  user-select: none;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+    Verdana, sans-serif;
+}
+.transparent-navbar {
+  background-color: transparent;
+}
+
+.white-text-custom {
+  color: white !important;
+}
+
+.adjustable-button {
+  position: absolute;
+  top: var(--button-top, 50%); /* Default to center vertically */
+  left: var(--button-left, 50%); /* Default to center horizontally */
+  transform: translate(-50%, -50%); /* Center the button exactly */
+  width: 130px;
+  height: 50px;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1em;
+  color: white;
+  font-weight: 500;
+  transition: 0.5s;
+}
+
+.adjustable-button:hover {
+  background: #fff;
+  color: #162938;
+}
+
+.adjustable-button:disabled {
+  pointer-events: none;
+}
+
+.adjustable button:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+.adjustable-button {
+  position: absolute;
+  top: var(--button-top, 60%); /* Default to center vertically */
+  left: var(--button-left, 85%); /* Default to center horizontally */
+  transform: translate(-50%, -50%); /* Center the button exactly */
+  width: 130px;
+  height: 50px;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1em;
+  color: white;
+  font-weight: 500;
+  transition: 0.5s;
+}
+
+.adjustable-button:hover {
+  background: #fff;
+  color: #162938;
+}
+
+.adjustable-button:disabled {
+  pointer-events: none;
+}
+
+.adjustable button:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+/* Media Query for Small Devices */
+@media (max-width: 600px) {
+  .adjustable-button {
+    width: 130px; /* Larger width for small devices */
+    font-size: 1rem; /* Larger, more legible font size */
+    top: 60%; /* Slightly adjust position for better visibility */
+    left: 75%;
+    transform: translate(-50%, -50%);
+  }
+}
+/* Adjustments for smaller screens */
+@media (max-width: 900px) {
+  .v-app-bar-title {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 600px) {
+  .v-app-bar-title {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 400px) {
+  .v-app-bar-title {
+    font-size: 1em;
+  }
+}
+
 /* Transparent Card */
 .transparent-card {
   background-color: transparent !important;
@@ -159,10 +320,24 @@
   appearance: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative; /* To position the checkmark inside */
 }
 
 .custom-checkbox:checked {
-  background-color: white;
+  background-color: transparent;
+  border-color: white; /* Ensure the border color is white when checked */
+}
+
+.custom-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  width: 4px;
+  height: 7px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg); /* Make the checkmark */
 }
 
 .ml-2 {
@@ -268,6 +443,8 @@ export default {
           }
 
           this.showSnackbar('Login successful!', 'success')
+          // Redirect to home page after successful signup
+          this.$router.push('/home')
         } catch (error) {
           console.error('Login error:', error)
           this.showSnackbar(`Login error: ${error.message}`, 'error')
@@ -301,8 +478,8 @@ export default {
           if (insertError) throw new Error('Unable to save user details to the database.')
 
           this.showSnackbar('Signup successful please check your email!', 'success')
-          // Redirect Acct to Home
-          router.replace('/home')
+          // Redirect to home page after successful signup
+          this.$router.push('/home')
 
           // Clear form fields after successful signup
           this.fullname = ''
