@@ -6,6 +6,7 @@ import TricycleView from '@/views/system/TricycleView.vue'
 import RoutesView from '@/views/system/RoutesView.vue'
 import ComplainView from '@/views/system/ComplainView.vue'
 import ContactView from '@/views/system/ContactView.vue'
+import ProfileView from '@/views/system/ProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,12 @@ const router = createRouter({
       path: '/contact',
       name: 'contact',
       component: ContactView,
+      meta: { requiresAuth: true, isDefault: true },
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileView,
       meta: { requiresAuth: true, isDefault: true },
     },
   ],
