@@ -4,6 +4,7 @@ import HomeView from '@/views/system/HomeView.vue'
 import MulticabView from '@/views/system/MulticabView.vue'
 import TricycleView from '@/views/system/TricycleView.vue'
 import RoutesView from '@/views/system/RoutesView.vue'
+import ComplainView from '@/views/system/ComplainView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,6 +37,12 @@ const router = createRouter({
       path: '/routes',
       name: 'routes',
       component: RoutesView,
+      meta: { requiresAuth: true, isDefault: true },
+    },
+    {
+      path: '/complain',
+      name: 'complain',
+      component: ComplainView,
       meta: { requiresAuth: true, isDefault: true },
     },
   ],
