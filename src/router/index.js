@@ -4,7 +4,7 @@ import HomeView from '@/views/system/HomeView.vue'
 import MulticabView from '@/views/system/MulticabView.vue'
 import TricycleView from '@/views/system/TricycleView.vue'
 import RoutesView from '@/views/system/RoutesView.vue'
-import ComplainView from '@/views/system/ComplainView.vue'
+import FareView from '@/views/system/FareView.vue'
 import ContactView from '@/views/system/ContactView.vue'
 import ProfileView from '@/views/system/ProfileView.vue'
 
@@ -42,9 +42,9 @@ const router = createRouter({
       meta: { requiresAuth: true, isDefault: true },
     },
     {
-      path: '/complain',
-      name: 'complain',
-      component: ComplainView,
+      path: '/fare',
+      name: 'fare',
+      component: FareView,
       meta: { requiresAuth: true, isDefault: true },
     },
     {

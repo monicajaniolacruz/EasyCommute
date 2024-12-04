@@ -27,7 +27,7 @@ const { mobile } = useDisplay()
           <router-link to="#" class="nav-link">Home</router-link>
           <router-link to="/complain" class="nav-link">Complain</router-link>
           <router-link to="/contact" class="nav-link">Contact Us</router-link>
-          <router-link to="#" class="nav-link">Profile</router-link>
+          <router-link to="/profile" class="nav-link">Profile</router-link>
         </nav>
       </v-container>
     </v-app-bar>
