@@ -3,14 +3,16 @@ import { useDisplay } from 'vuetify'
 
 const { mobile } = useDisplay()
 </script>
+
 <template>
   <v-app>
     <!-- Background Video -->
     <div class="video-container">
       <video autoplay muted loop class="background-video">
-        <source src="/public/images/home.mp4" type="video/mp4" />
+        <source src="/public/images/homeview.mp4" type="video/mp4" />
       </video>
     </div>
+
     <!-- Header Section -->
     <v-app-bar app flat class="transparent-navbar">
       <v-container class="d-flex align-center">
@@ -23,36 +25,28 @@ const { mobile } = useDisplay()
         <v-spacer></v-spacer>
         <nav>
           <router-link to="#" class="nav-link">Home</router-link>
-          <router-link to="#" class="nav-link">Complain</router-link>
-          <router-link to="#" class="nav-link">Contact Us</router-link>
+          <router-link to="/complain" class="nav-link">Complain</router-link>
+          <router-link to="/contact" class="nav-link">Contact Us</router-link>
           <router-link to="#" class="nav-link">Profile</router-link>
         </nav>
       </v-container>
     </v-app-bar>
-    <!-- First Row -->
-    <v-container class="text-center custom-container">
-      <v-row justify="center" align="center" class="button-row first-row">
-        <v-col cols="12" md="4" sm="6">
-          <RouterLink to="/multicab" style="text-decoration: none">
-            <v-btn class="custom-btn" rounded="xl" size="x-large" block> Multicab </v-btn>
-          </RouterLink>
-        </v-col>
-      </v-row>
 
-      <!-- Second Row -->
-      <v-row justify="center" align="center" class="button-row second-row">
-        <v-col cols="12" md="4" sm="6">
-          <RouterLink to="/tricycle" style="text-decoration: none">
-            <v-btn class="custom-btn" rounded="xl" size="x-large" block> Tricycle </v-btn>
-          </RouterLink>
-        </v-col>
-      </v-row>
-    </v-container>
+    <!-- First Row (Content above video) -->
+    <div class="overlay">
+      <div class="main-title">DON'T KNOW</div>
+      <div class="subtitle">WHERE TO GO?</div>
+      <RouterLink to="/routes" style="text-decoration: none">
+        <v-btn class="contact-button"> GET STARTED </v-btn>
+      </RouterLink>
+    </div>
 
     <RouterView />
   </v-app>
 </template>
+
 <style scoped>
+/* Background Video */
 .background-video {
   position: fixed;
   top: 0;
@@ -62,6 +56,8 @@ const { mobile } = useDisplay()
   object-fit: cover;
   z-index: -1;
 }
+
+/* Video Container */
 .video-container {
   position: fixed;
   top: 0;
@@ -71,14 +67,18 @@ const { mobile } = useDisplay()
   overflow: hidden;
 }
 
-.logo {
-  font-size: 2em;
+/* Overlay Styles for text and button on the left */
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 10%; /* Aligns content to the left */
+  transform: translateY(-50%); /* Vertically center the content */
+  text-align: left; /* Align text to the left */
   color: white;
-  user-select: none;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-    Verdana, sans-serif;
+  z-index: 1; /* Ensure content is above the video */
 }
 
+/* Navbar Styles */
 .transparent-navbar {
   background-color: transparent;
 }
@@ -93,38 +93,69 @@ const { mobile } = useDisplay()
     Verdana, sans-serif;
 }
 
+.nav-link:hover {
+  opacity: 0.8;
+}
+
 .white-text-custom {
   color: white !important;
 }
 
-.custom-btn {
-  font-weight: bold; /* Adjust font weight for a bolder appearance */
-  padding: 16px 24px; /* Increase padding for a 'heavier' feel */
-  border: 3px solid #1c85be; /* Add a thicker border */
-  background-color: #1c85be; /* Button background color */
-  color: #ffffff; /* Text color */
-  text-transform: uppercase; /* Optional: Make text uppercase */
-  transition: all 0.3s ease; /* Smooth transitions for hover effects */
+.main-title {
+  font-size: 7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow:
+    2px 2px 10px #00bfff,
+    4px 4px 10px rgba(254, 254, 254, 0.8); /* Neon glow effect */
+  margin-bottom: 10px;
 }
 
-.custom-btn:hover {
-  background-color: #ffffff; /* Change background on hover */
-  color: #1c85be; /* Change text color on hover */
-  border-color: #ffffff; /* Change border color on hover */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Add shadow for hover effect */
+.subtitle {
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  letter-spacing: 3px;
 }
 
-.button-row {
-  margin-top: 20px; /* Add some spacing between rows */
+/* Contact Button */
+.contact-button {
+  display: inline-block;
+  background-color: #00bfff;
+  color: black;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 255, 128, 0.4);
 }
 
-.first-row {
-  transform: translate(32%, 200%);
-  width: 60%;
+.contact-button:hover {
+  background-color: #ffffff;
+  color: #00bfff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 255, 128, 0.6);
 }
 
-.second-row {
-  transform: translate(32%, 400%);
-  width: 60%;
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .main-title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+  }
+
+  .nav-link {
+    margin-right: 20px;
+  }
+
+  .contact-button {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
 }
 </style>
