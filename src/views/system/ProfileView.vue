@@ -9,7 +9,7 @@ const { mobile } = useDisplay()
     <!-- Background Video -->
     <div class="video-container">
       <video autoplay muted loop class="background-video">
-        <source src="/public/images/homeview.mp4" type="video/mp4" />
+        <source src="/public/images/background.mp4" type="video/mp4" />
       </video>
     </div>
 
@@ -24,8 +24,8 @@ const { mobile } = useDisplay()
         <!-- Navigation -->
         <v-spacer></v-spacer>
         <nav>
-          <router-link to="#" class="nav-link">Home</router-link>
-          <router-link to="/complain" class="nav-link">Complain</router-link>
+          <router-link to="/home" class="nav-link">Home</router-link>
+          <router-link to="/fare" class="nav-link">Fare</router-link>
           <router-link to="/contact" class="nav-link">Contact Us</router-link>
           <router-link to="#" class="nav-link">Profile</router-link>
         </nav>
