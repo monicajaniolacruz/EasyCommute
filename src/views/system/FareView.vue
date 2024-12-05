@@ -53,16 +53,16 @@ const closeModal = () => {
     <v-navigation-drawer v-model="drawer" temporary class="mobile-drawer">
       <v-list>
         <v-list-item>
-          <router-link to="#" class="nav-link">Home</router-link>
+          <router-link to="/home" class="nav-link">Home</router-link>
         </v-list-item>
         <v-list-item>
-          <router-link to="/complain" class="nav-link">Complain</router-link>
+          <router-link to="#" class="nav-link">Fare</router-link>
         </v-list-item>
         <v-list-item>
           <router-link to="/contact" class="nav-link">Contact Us</router-link>
         </v-list-item>
         <v-list-item>
-          <router-link to="#" class="nav-link">Profile</router-link>
+          <router-link to="/profile" class="nav-link">Profile</router-link>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
