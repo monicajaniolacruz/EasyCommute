@@ -17,9 +17,7 @@ const { mobile } = useDisplay()
     <v-app-bar app flat class="transparent-navbar">
       <v-container class="d-flex align-center">
         <!-- Logo -->
-        <v-app-bar-title class="text-h5 font-weight-bold white-text-custom">
-          Easy Commute
-        </v-app-bar-title>
+        <v-app-bar-title class="logo-container"> Easy Commute </v-app-bar-title>
 
         <!-- Navigation -->
         <v-spacer></v-spacer>
@@ -38,6 +36,29 @@ const { mobile } = useDisplay()
 </template>
 
 <style scoped>
+.logo-container {
+  display: flex;
+  align-items: center;
+  font-size: 2rem; /* Large screens default size */
+  font-weight: bold;
+  text-align: center;
+  color: white; /* Ensures visibility on dark backgrounds */
+  transition: font-size 0.3s ease;
+}
+
+@media (max-width: 1200px) {
+  .logo-container {
+    font-size: 1.5rem; /* Medium screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .logo-container {
+    font-size: 1.2rem; /* Small screens (mobile devices) */
+    justify-content: center;
+  }
+}
+
 /* Background Video */
 .background-video {
   position: fixed;
