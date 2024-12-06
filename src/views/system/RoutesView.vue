@@ -23,7 +23,8 @@ const { mobile } = useDisplay()
         <v-spacer></v-spacer>
         <nav>
           <router-link to="/home" class="nav-link">Home</router-link>
-          <router-link to="/complain" class="nav-link">Complain</router-link>
+          <router-link to="#" class="nav-link">Ride</router-link>
+          <router-link to="/fare" class="nav-link">Fare</router-link>
           <router-link to="/contact" class="nav-link">Contact Us</router-link>
           <router-link to="/profile" class="nav-link">Profile</router-link>
         </nav>

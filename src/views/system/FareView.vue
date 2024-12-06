@@ -39,6 +39,7 @@ const closeModal = () => {
         <v-spacer></v-spacer>
         <nav v-if="!mobile">
           <router-link to="/home" class="nav-link">Home</router-link>
+          <router-link to="/routes" class="nav-link">Ride</router-link>
           <router-link to="#" class="nav-link">Fare</router-link>
           <router-link to="/contact" class="nav-link">Contact Us</router-link>
           <router-link to="/profile" class="nav-link">Profile</router-link>
