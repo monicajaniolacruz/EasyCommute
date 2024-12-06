@@ -1,5 +1,7 @@
 <script setup>
-import { RouterView } from 'vue-router'
+import { useDisplay } from 'vuetify'
+
+const { mobile } = useDisplay()
 </script>
 <template>
   <v-app>
@@ -20,26 +22,30 @@ import { RouterView } from 'vue-router'
         <!-- Navigation -->
         <v-spacer></v-spacer>
         <nav>
-          <router-link to="#" class="nav-link">Home</router-link>
-          <router-link to="#" class="nav-link">Complain</router-link>
-          <router-link to="#" class="nav-link">Contact Us</router-link>
-          <router-link to="#" class="nav-link">Profile</router-link>
+          <router-link to="/home" class="nav-link">Home</router-link>
+          <router-link to="#" class="nav-link">Ride</router-link>
+          <router-link to="/fare" class="nav-link">Fare</router-link>
+          <router-link to="/contact" class="nav-link">Contact Us</router-link>
+          <router-link to="/profile" class="nav-link">Profile</router-link>
         </nav>
       </v-container>
     </v-app-bar>
-
+    <!-- First Row -->
     <v-container class="text-center custom-container">
-      <!-- First Row -->
       <v-row justify="center" align="center" class="button-row first-row">
         <v-col cols="12" md="4" sm="6">
-          <v-btn class="custom-btn" rounded="xl" size="x-large" block>Multicab</v-btn>
+          <RouterLink to="/multicab" style="text-decoration: none">
+            <v-btn class="custom-btn" rounded="xl" size="x-large" block> Multicab </v-btn>
+          </RouterLink>
         </v-col>
       </v-row>
 
       <!-- Second Row -->
       <v-row justify="center" align="center" class="button-row second-row">
         <v-col cols="12" md="4" sm="6">
-          <v-btn class="custom-btn" rounded="xl" size="x-large" block>Tricycle</v-btn>
+          <RouterLink to="/tricycle" style="text-decoration: none">
+            <v-btn class="custom-btn" rounded="xl" size="x-large" block> Tricycle </v-btn>
+          </RouterLink>
         </v-col>
       </v-row>
     </v-container>
@@ -47,7 +53,6 @@ import { RouterView } from 'vue-router'
     <RouterView />
   </v-app>
 </template>
-
 <style scoped>
 .background-video {
   position: fixed;
