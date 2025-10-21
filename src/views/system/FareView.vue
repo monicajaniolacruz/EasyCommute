@@ -52,7 +52,7 @@ onMounted(() => {
 
     <div class="image-container-2">
       <img
-        src="/public/images/multicabfare(1).jpg"
+        src="/public/images/multicabfare.jpg"
         alt="Multicab Fare"
         class="overlay-image"
         @click="openModal('/images/multicabfare.jpg')"

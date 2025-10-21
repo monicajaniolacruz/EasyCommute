@@ -7,6 +7,9 @@ import {
 } from '@/utils/validators'
 import { ref } from 'vue'
 import { supabase, formActionDefault } from '@/utils/supabase'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const IsPasswordVisible = ref(false)
 const IsPasswordConfirmVisible = ref(false)
@@ -46,11 +49,18 @@ const onRegister = async () => {
     console.log(error)
     formAction.value.formErrorMessage = error.message
     formAction.value.formStatus = error.status
-  } else if (data) {
-    console.log(data)
+  }
+  if (data) {
     formAction.value.formSuccessMessage = 'Successfully Registered Account.'
     refVform.value?.reset()
+
+    // Wait a moment to show success
+    setTimeout(() => {
+      router.replace('/home')
+    }, 1500)
   }
+
+  refVform.value?.reset()
   formAction.value.formProcess = false
 }
 
