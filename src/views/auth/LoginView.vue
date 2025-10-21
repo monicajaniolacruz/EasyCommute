@@ -1,9 +1,30 @@
 <script setup>
+import { requiredValidator, emailValidator } from '@/utils/validators'
 import { ref } from 'vue'
 
 const password = ref('')
 const showPassword = ref(false)
 const currentForm = ref('login')
+const refVform = ref()
+
+const formDataDefault = {
+  email: '',
+  password: '',
+}
+
+const formData = ref({
+  ...formDataDefault,
+})
+
+const onLogin = () => {
+  alert(formData.value.email)
+}
+
+const onFormSubmit = () => {
+  refVform.value?.validate().then(({ valid }) => {
+    if (valid) onLogin()
+  })
+}
 
 function togglePasswordVisibility() {
   showPassword.value = !showPassword.value
@@ -40,19 +61,21 @@ function togglePasswordVisibility() {
                   <v-tab value="login">Login</v-tab>
                 </v-tabs>
 
-                <v-window v-model="currentForm">
+                <v-window>
                   <v-window-item value="login">
-                    <v-form fast-fail @submit.prevent>
+                    <v-form ref="refVform" @submit.prevent="onFormSubmit">
                       <v-text-field
+                        v-model="formData.email"
                         label="Email"
                         prepend-icon="mdi-email"
                         variant="filled"
                         color="white"
                         hide-details
+                        :rules="[requiredValidator, emailValidator]"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="password"
+                        v-model="formData.password"
                         label="Password"
                         prepend-icon="mdi-lock"
                         variant="filled"
@@ -61,7 +84,7 @@ function togglePasswordVisibility() {
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="togglePasswordVisibility"
                         hide-details
-                        required
+                        :rules="[requiredValidator]"
                       ></v-text-field>
 
                       <v-btn class="mt-4 gradient-btn" type="submit" block rounded elevation="6">
