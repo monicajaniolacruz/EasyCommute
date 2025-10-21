@@ -37,12 +37,19 @@ function togglePasswordVisibility() {
               <v-card-text class="pa-6 transparent-card white--text">
                 <!-- Form Tabs and other content -->
                 <v-tabs v-model="currentForm" grow class="white--text">
-                  <v-tab value="login">Login</v-tab>
+                  <v-tab value="login">SignUp</v-tab>
                 </v-tabs>
 
                 <v-window v-model="currentForm">
                   <v-window-item value="login">
                     <v-form fast-fail @submit.prevent>
+                      <v-text-field
+                        label="Full Name"
+                        prepend-icon="mdi-account"
+                        variant="filled"
+                        color="white"
+                        hide-details
+                      ></v-text-field>
                       <v-text-field
                         label="Email"
                         prepend-icon="mdi-email"
@@ -63,6 +70,18 @@ function togglePasswordVisibility() {
                         hide-details
                         required
                       ></v-text-field>
+                      <v-text-field
+                        v-model="confirmPassword"
+                        label="Confirm Password"
+                        prepend-icon="mdi-lock-check"
+                        variant="filled"
+                        color="white"
+                        :type="showPassword ? 'text' : 'password'"
+                        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                        @click:append="togglePasswordVisibility"
+                        hide-details
+                        required
+                      ></v-text-field>
 
                       <v-btn class="mt-4 gradient-btn" type="submit" block rounded elevation="6">
                         SIGN IN
@@ -72,8 +91,8 @@ function togglePasswordVisibility() {
                 </v-window>
                 <v-divider class="my-5"></v-divider>
                 <h5 class="text-center">
-                  Don't have an account?
-                  <RouterLink class="btn-cyan" to="/register">SIGNUP</RouterLink>
+                  Already have an account?
+                  <RouterLink class="btn-cyan" to="/login">LOGIN</RouterLink>
                 </h5>
               </v-card-text>
             </v-card>
