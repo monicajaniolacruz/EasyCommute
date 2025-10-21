@@ -2,12 +2,10 @@
 import { ref } from 'vue'
 
 const password = ref('')
-const showPassword = ref(false)
-const currentForm = ref('login')
-
-function togglePasswordVisibility() {
-  showPassword.value = !showPassword.value
-}
+const confirmPassword = ref('')
+const IsPasswordVisible = ref(false)
+const IsPasswordConfirmVisible = ref(false)
+const currentForm = ref('register')
 </script>
 
 <template>
@@ -64,11 +62,9 @@ function togglePasswordVisibility() {
                         prepend-icon="mdi-lock"
                         variant="filled"
                         color="white"
-                        :type="showPassword ? 'text' : 'password'"
-                        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                        @click:append="togglePasswordVisibility"
-                        hide-details
-                        required
+                        :type="IsPasswordVisible ? 'text' : 'password'"
+                        :append-icon="IsPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'"
+                        @click:append="IsPasswordVisible = !IsPasswordVisible"
                       ></v-text-field>
                       <v-text-field
                         v-model="confirmPassword"
@@ -76,11 +72,9 @@ function togglePasswordVisibility() {
                         prepend-icon="mdi-lock-check"
                         variant="filled"
                         color="white"
-                        :type="showPassword ? 'text' : 'password'"
-                        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                        @click:append="togglePasswordVisibility"
-                        hide-details
-                        required
+                        :type="IsPasswordConfirmVisible ? 'text' : 'password'"
+                        :append-icon="IsPasswordConfirmVisible ? 'mdi-eye' : 'mdi-eye-off'"
+                        @click:append="IsPasswordConfirmVisible = !IsPasswordConfirmVisible"
                       ></v-text-field>
 
                       <v-btn class="mt-4 gradient-btn" type="submit" block rounded elevation="6">
