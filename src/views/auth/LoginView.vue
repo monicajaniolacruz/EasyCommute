@@ -1,11 +1,15 @@
 <script setup>
 import { requiredValidator, emailValidator } from '@/utils/validators'
+import { supabase, formActionDefault } from '@/utils/supabase'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const password = ref('')
 const showPassword = ref(false)
 const currentForm = ref('login')
 const refVform = ref()
+
+const router = useRouter()
 
 const formDataDefault = {
   email: '',
@@ -16,8 +20,33 @@ const formData = ref({
   ...formDataDefault,
 })
 
-const onLogin = () => {
-  //   alert(formData.value.email)
+const formAction = ref({
+  ...formActionDefault,
+})
+
+const onLogin = async () => {
+  formAction.value = { ...formActionDefault }
+  formAction.value.formProcess = true
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: formData.value.email,
+    password: formData.value.password,
+  })
+  if (error) {
+    formAction.value.formErrorMessage = error.message
+    formAction.value.formStatus = error.status
+  }
+  if (data) {
+    formAction.value.formSuccessMessage = 'Successfully Logged Account.'
+
+    // Wait a moment to show success
+    setTimeout(() => {
+      router.replace('/home')
+    }, 1500)
+  }
+
+  refVform.value?.reset()
+  formAction.value.formProcess = false
 }
 
 const onFormSubmit = () => {
@@ -63,7 +92,27 @@ function togglePasswordVisibility() {
 
                 <v-window>
                   <v-window-item value="login">
-                    <v-form ref="refVform" @submit.prevent="onFormSubmit">
+                    <v-alert
+                      v-if="formAction.formSuccessMessage"
+                      :text="formAction.formSuccessMessage"
+                      title="Success!"
+                      type="success"
+                      variant="tonal"
+                      density="compact"
+                      border="start"
+                      closable
+                    ></v-alert>
+                    <v-alert
+                      v-if="formAction.formErrorMessage"
+                      :text="formAction.formErrorMessage"
+                      title="Ooops!"
+                      type="error"
+                      variant="tonal"
+                      density="compact"
+                      border="start"
+                      closable
+                    ></v-alert>
+                    <v-form class="mt-5" ref="refVform" @submit.prevent="onFormSubmit">
                       <v-text-field
                         v-model="formData.email"
                         label="Email"

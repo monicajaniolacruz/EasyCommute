@@ -52,7 +52,6 @@ const onRegister = async () => {
   }
   if (data) {
     formAction.value.formSuccessMessage = 'Successfully Registered Account.'
-    refVform.value?.reset()
 
     // Wait a moment to show success
     setTimeout(() => {
@@ -73,26 +72,6 @@ const onFormSubmit = () => {
 
 <template>
   <v-responsive class="border rounded">
-    <v-alert
-      v-if="formAction.formSuccessMessage"
-      :text="formAction.formSuccessMessage"
-      title="Success!"
-      type="success"
-      variant="tonal"
-      density="compact"
-      border="start"
-      closable
-    ></v-alert>
-    <v-alert
-      v-if="formAction.formErrorMessage"
-      :text="formAction.formErrorMessage"
-      title="Ooops!"
-      type="error"
-      variant="tonal"
-      density="compact"
-      border="start"
-      closable
-    ></v-alert>
     <v-app>
       <!-- Background Video -->
       <div class="video-container">
@@ -123,7 +102,27 @@ const onFormSubmit = () => {
 
                 <v-window>
                   <v-window-item value="login">
-                    <v-form ref="refVform" @submit.prevent="onFormSubmit">
+                    <v-alert
+                      v-if="formAction.formSuccessMessage"
+                      :text="formAction.formSuccessMessage"
+                      title="Success!"
+                      type="success"
+                      variant="tonal"
+                      density="compact"
+                      border="start"
+                      closable
+                    ></v-alert>
+                    <v-alert
+                      v-if="formAction.formErrorMessage"
+                      :text="formAction.formErrorMessage"
+                      title="Ooops!"
+                      type="error"
+                      variant="tonal"
+                      density="compact"
+                      border="start"
+                      closable
+                    ></v-alert>
+                    <v-form class="mt-5" ref="refVform" @submit.prevent="onFormSubmit">
                       <v-text-field
                         v-model="formData.fullname"
                         label="Full Name"
