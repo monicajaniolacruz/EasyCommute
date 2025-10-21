@@ -6,9 +6,8 @@ import {
   confirmedValidator,
 } from '@/utils/validators'
 import { ref } from 'vue'
+import { supabase, formActionDefault } from '@/utils/supabase'
 
-const password = ref('')
-const confirmPassword = ref('')
 const IsPasswordVisible = ref(false)
 const IsPasswordConfirmVisible = ref(false)
 const currentForm = ref('register')
@@ -25,8 +24,34 @@ const formData = ref({
   ...formDataDefault,
 })
 
-const onRegister = () => {
-  alert(formData.value.email)
+const formAction = ref({
+  ...formActionDefault,
+})
+
+const onRegister = async () => {
+  formAction.value = { ...formActionDefault }
+  formAction.value.formProcess = true
+
+  const { data, error } = await supabase.auth.signUp({
+    email: formData.value.email,
+    password: formData.value.password,
+    options: {
+      data: {
+        fullname: formData.value.fullname,
+      },
+    },
+  })
+
+  if (error) {
+    console.log(error)
+    formAction.value.formErrorMessage = error.message
+    formAction.value.formStatus = error.status
+  } else if (data) {
+    console.log(data)
+    formAction.value.formSuccessMessage = 'Successfully Registered Account.'
+    refVform.value?.reset()
+  }
+  formAction.value.formProcess = false
 }
 
 const onFormSubmit = () => {
@@ -38,6 +63,26 @@ const onFormSubmit = () => {
 
 <template>
   <v-responsive class="border rounded">
+    <v-alert
+      v-if="formAction.formSuccessMessage"
+      :text="formAction.formSuccessMessage"
+      title="Success!"
+      type="success"
+      variant="tonal"
+      density="compact"
+      border="start"
+      closable
+    ></v-alert>
+    <v-alert
+      v-if="formAction.formErrorMessage"
+      :text="formAction.formErrorMessage"
+      title="Ooops!"
+      type="error"
+      variant="tonal"
+      density="compact"
+      border="start"
+      closable
+    ></v-alert>
     <v-app>
       <!-- Background Video -->
       <div class="video-container">
@@ -114,7 +159,15 @@ const onFormSubmit = () => {
                         ]"
                       ></v-text-field>
 
-                      <v-btn class="mt-4 gradient-btn" type="submit" block rounded elevation="6">
+                      <v-btn
+                        class="mt-4 gradient-btn"
+                        type="submit"
+                        block
+                        rounded
+                        elevation="6"
+                        :disabled="formAction.formProcess"
+                        :loading="formAction.formProcess"
+                      >
                         SIGN IN
                       </v-btn>
                     </v-form>
