@@ -123,7 +123,7 @@ const onFormSubmit = () => {
                 <v-divider class="my-5"></v-divider>
                 <h5 class="text-center">
                   Already have an account?
-                  <RouterLink class="btn-cyan" to="/login">LOGIN</RouterLink>
+                  <RouterLink class="btn-cyan" to="/">LOGIN</RouterLink>
                 </h5>
               </v-card-text>
             </v-card>
